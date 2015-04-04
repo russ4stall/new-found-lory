@@ -1,6 +1,7 @@
 package com.github.russ4stall;
 
 import com.github.russ4stall.resources.BoingoResource;
+import com.github.russ4stall.resources.WeekScoresResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -24,5 +25,8 @@ public class NflApplication extends Application<NflConfiguration> {
     public void run(NflConfiguration nflConfiguration, Environment environment) throws Exception {
         final BoingoResource boingoResource = new BoingoResource();
         environment.jersey().register(boingoResource);
+
+        final WeekScoresResource weekScoresResource = new WeekScoresResource();
+        environment.jersey().register(weekScoresResource);
     }
 }
