@@ -1,7 +1,7 @@
 # New Found Lory
 
 This is a simple service that returns nfl scores for a specified week of a specified season in JSON. Scores are scraped 
-from the NFL website. A future version of this service will implement a cache.
+from the NFL.com website. A future version of this service will implement a cache.
 
 ###Usage: 
 
