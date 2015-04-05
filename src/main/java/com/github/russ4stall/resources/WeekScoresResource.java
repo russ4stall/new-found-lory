@@ -2,6 +2,7 @@ package com.github.russ4stall.resources;
 
 import com.github.russ4stall.core.ScoreScraper;
 import com.github.russ4stall.core.SeasonSection;
+import com.github.russ4stall.core.WeeklyScoresCache;
 import com.github.russ4stall.representations.Game;
 import com.google.common.base.Optional;
 
@@ -21,6 +22,11 @@ import java.util.List;
 @Path("/scores/{year}/{week}")
 @Produces(MediaType.APPLICATION_JSON)
 public class WeekScoresResource {
+    private WeeklyScoresCache cache;
+
+    public WeekScoresResource(WeeklyScoresCache cache) {
+        this.cache = cache;
+    }
 
     @GET
     public List<Game> games(@PathParam("week") Optional<Integer> weekNum, @PathParam("year") Optional<Integer> yearNum) {
@@ -30,11 +36,17 @@ public class WeekScoresResource {
         cal.setTime(new Date());
         int year = yearNum.or(cal.get(Calendar.YEAR));
 
-        //todo: implement utility that scrapes scores from NFL.com. Use cache once it's implemented
+        String seasonAndWeekKey = year+"/"+week;
+
+        if (cache.exists(seasonAndWeekKey)) {
+            return cache.getWeeklyScores(seasonAndWeekKey);
+        }
+
         ScoreScraper scoreScraper = new ScoreScraper(year, week, SeasonSection.REG);
-
-
         List<Game> games = scoreScraper.scrapeWeekScores();
+
+        cache.addWeeklyScores(seasonAndWeekKey, games);
+
         return games;
     }
 

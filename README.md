@@ -7,9 +7,13 @@ from the NFL.com website. A future version of this service will implement a cach
 
 **{hostname}/scores/{year}/{weekNumber}**
 
+Returns the scores for every game from week number {weekNumber} in the {year} season. 
+
 ###Example:
 
 **myserver.com/scores/2014/1**
+
+Returns the scores for every game from week number 1 in the 2014 season.
 
 This returns the following:
         

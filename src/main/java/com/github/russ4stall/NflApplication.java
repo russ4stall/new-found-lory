@@ -1,6 +1,7 @@
 package com.github.russ4stall;
 
-import com.github.russ4stall.resources.BoingoResource;
+import com.github.russ4stall.core.WeeklyScoresCache;
+import com.github.russ4stall.core.WeeklyScoresCacheConcurrentMapImpl;
 import com.github.russ4stall.resources.WeekScoresResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -19,14 +20,14 @@ public class NflApplication extends Application<NflConfiguration> {
     @Override
     public void initialize(Bootstrap<NflConfiguration> bootstrap) {
         super.initialize(bootstrap);
+
     }
 
     @Override
     public void run(NflConfiguration nflConfiguration, Environment environment) throws Exception {
-        final BoingoResource boingoResource = new BoingoResource();
-        environment.jersey().register(boingoResource);
+        WeeklyScoresCache cache = new WeeklyScoresCacheConcurrentMapImpl();
 
-        final WeekScoresResource weekScoresResource = new WeekScoresResource();
+        final WeekScoresResource weekScoresResource = new WeekScoresResource(cache);
         environment.jersey().register(weekScoresResource);
     }
 }
