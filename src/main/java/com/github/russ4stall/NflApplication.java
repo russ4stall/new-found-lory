@@ -20,7 +20,7 @@ public class NflApplication extends Application<NflConfiguration> {
 
     @Override
     public void initialize(Bootstrap<NflConfiguration> bootstrap) {
-
+        super.initialize(bootstrap);
     }
 
     @Override
