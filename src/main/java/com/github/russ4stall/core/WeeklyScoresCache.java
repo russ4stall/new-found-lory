@@ -14,4 +14,6 @@ public interface WeeklyScoresCache {
 
     void addWeeklyScores(String seasonAndWeek, List<Game> weeklyScores);
 
+    List<String> getKeys();
+
 }

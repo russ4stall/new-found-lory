@@ -2,6 +2,7 @@ package com.github.russ4stall;
 
 import com.github.russ4stall.core.WeeklyScoresCache;
 import com.github.russ4stall.core.WeeklyScoresCacheConcurrentMapImpl;
+import com.github.russ4stall.resources.CacheViewResource;
 import com.github.russ4stall.resources.WeekScoresResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -19,7 +20,6 @@ public class NflApplication extends Application<NflConfiguration> {
 
     @Override
     public void initialize(Bootstrap<NflConfiguration> bootstrap) {
-        super.initialize(bootstrap);
 
     }
 
@@ -29,5 +29,8 @@ public class NflApplication extends Application<NflConfiguration> {
 
         final WeekScoresResource weekScoresResource = new WeekScoresResource(cache);
         environment.jersey().register(weekScoresResource);
+
+        final CacheViewResource cacheViewResource = new CacheViewResource(cache);
+        environment.jersey().register(cacheViewResource);
     }
 }
